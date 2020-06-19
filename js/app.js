@@ -1,13 +1,12 @@
 /*
- * Create a list that holds all of your cards
+ * Create a list that holds all of your cards - Done
  */
-const listOfCards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-anchor', 'fa-leaf', 'fa-bicycle', 'fa-diamond', 'fa-bomb', 'fa-leaf', 'fa-bomb', 'fa-bolt', 'fa-bicycle', 'fa-paper-plane-o', 'fa-cube'];
-
+let listOfCards = ['fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-cube', 'fa fa-anchor', 'fa fa-leaf', 'fa fa-bicycle', 'fa fa-diamond', 'fa fa-bomb', 'fa fa-leaf', 'fa fa-bomb', 'fa fa-bolt', 'fa fa-bicycle', 'fa fa-paper-plane-o', 'fa fa-cube'];
 /*
  * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
+ *   - shuffle the list of cards using the provided "shuffle" method below - Done
+ *   - loop through each card and create its HTML - Done
+ *   - add each card's HTML to the page - Done
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -20,8 +19,6 @@ function shuffle(array) {
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
-        console.log(temporaryValue);
-        console.log(array[randomIndex]);
     }
 
     return array;
@@ -29,10 +26,28 @@ function shuffle(array) {
 
 shuffle(listOfCards);
 
-// for(let i = 0; i < listOfCards.length; i++) {
-//     const listOfClasses = listOfCards[i].classList;
-//     listOfClasses.add('open', 'show');
-//     console.log(listOfClasses);
+const deck = document.querySelector('.deck');
+const fragmentCard = document.createDocumentFragment();
+
+for (let i = 0; i < listOfCards.length; i++) {
+    const newElementCard = document.createElement('li');
+    newElementCard.className = 'card show open';
+    fragmentCard.appendChild(newElementCard);
+}
+
+deck.appendChild(fragmentCard);
+
+const card = document.querySelectorAll('.card');
+
+for (let i = 0; i < listOfCards.length; i++) {
+    const newElementIcon = document.createElement('i');
+    newElementIcon.className = listOfCards[i];
+    card[i].appendChild(newElementIcon);
+}
+
+// for (let i = 0; i < listOfCards.length; i++) {
+//     const listOfClasses = card[i].classList;
+//     listOfClasses.add('show');
 // }
 
 /*
