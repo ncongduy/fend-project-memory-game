@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-
+const listOfCards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-anchor', 'fa-leaf', 'fa-bicycle', 'fa-diamond', 'fa-bomb', 'fa-leaf', 'fa-bomb', 'fa-bolt', 'fa-bicycle', 'fa-paper-plane-o', 'fa-cube'];
 
 /*
  * Display the cards on the page
@@ -20,11 +20,20 @@ function shuffle(array) {
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
+        console.log(temporaryValue);
+        console.log(array[randomIndex]);
     }
 
     return array;
 }
 
+shuffle(listOfCards);
+
+// for(let i = 0; i < listOfCards.length; i++) {
+//     const listOfClasses = listOfCards[i].classList;
+//     listOfClasses.add('open', 'show');
+//     console.log(listOfClasses);
+// }
 
 /*
  * set up the event listener for a card. If a card is clicked:
