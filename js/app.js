@@ -1,14 +1,8 @@
-/*
- * Create a list that holds all of your cards - Done
- */
+// Create a list that holds all of your cards - Done
 let listOfCards = ['fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-cube', 'fa fa-anchor', 'fa fa-leaf', 'fa fa-bicycle', 'fa fa-diamond', 'fa fa-bomb', 'fa fa-leaf', 'fa fa-bomb', 'fa fa-bolt', 'fa fa-bicycle', 'fa fa-paper-plane-o', 'fa fa-cube'];
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below - Done
- *   - loop through each card and create its HTML - Done
- *   - add each card's HTML to the page - Done
- */
 
+// Display the cards on the page
+// Shuffle the list of cards using the provided "shuffle" method below - Done
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -23,35 +17,33 @@ function shuffle(array) {
 
     return array;
 }
-
 shuffle(listOfCards);
 
+// loop through each card and create its HTML - Done
 const deck = document.querySelector('.deck');
 const fragmentCard = document.createDocumentFragment();
 
 for (let i = 0; i < listOfCards.length; i++) {
     const newElementCard = document.createElement('li');
-    newElementCard.className = 'card show open';
+    newElementCard.className = 'card';
+    const newElementIcon = document.createElement('i');
+    newElementIcon.className = listOfCards[i];
+    newElementCard.appendChild(newElementIcon);
     fragmentCard.appendChild(newElementCard);
 }
 
+// add each card's HTML to the page - Done
 deck.appendChild(fragmentCard);
 
-const card = document.querySelectorAll('.card');
-
-for (let i = 0; i < listOfCards.length; i++) {
-    const newElementIcon = document.createElement('i');
-    newElementIcon.className = listOfCards[i];
-    card[i].appendChild(newElementIcon);
-}
-
-// for (let i = 0; i < listOfCards.length; i++) {
-//     const listOfClasses = card[i].classList;
-//     listOfClasses.add('show');
-// }
+// set up the event listener for a card. If a card is clicked - Done
+deck.addEventListener('click', function (evt) {
+    if(evt.target.nodeName==='LI'){
+        evt.target.className = 'card open show';
+    }
+});
 
 /*
- * set up the event listener for a card. If a card is clicked:
+ *
  *  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
