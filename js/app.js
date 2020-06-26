@@ -34,18 +34,25 @@ for (let i = 0; i < listOfCards.length; i++) {
 // add each card's HTML to the page - Done
 deck.appendChild(fragmentCard);
 
-// set up the event listener for a card. If a card is clicked - Done
-let cardsOpen = [];
-
+//set up two cards when match - Done
 function twoCardsMatch() {
-    console.log(cardsOpen);
-    console.log(cardsOpen.length);
     if (cardsOpen[0] === cardsOpen[1]) {
         const match = deck.getElementsByClassName(cardsOpen[0]);
         match[0].parentElement.className = 'card match';
         match[1].parentElement.className = 'card match';
     };
 }
+
+//set up two cards when NOT match - On going
+function twoCardsNotMatch() {
+    if (cardsOpen[0] !== cardsOpen[1]) {
+        console.log('oh yeah!')
+    }
+
+}
+
+// set up the event listener for a card. If a card is clicked - Done
+let cardsOpen = [];
 
 deck.addEventListener('click', function (evt) {
     if (evt.target.nodeName === 'LI') {
@@ -54,6 +61,7 @@ deck.addEventListener('click', function (evt) {
         cardsOpen.push(icon);
         if (cardsOpen.length === 2) {
             twoCardsMatch();
+            twoCardsNotMatch(); //on going
             cardsOpen = [];
         }
     }
