@@ -46,7 +46,6 @@ function twoCardsMatch() {
         const match = deck.getElementsByClassName(cardsOpen[0]);
         match[0].parentElement.className = 'card match';
         match[1].parentElement.className = 'card match';
-        countMove();
         setTimeout(deleteCards, 500);
     };
 }
@@ -60,7 +59,6 @@ function twoCardsNotMatch() {
         diff1[1].parentElement.className = 'card';
         diff2[0].parentElement.className = 'card';
         diff2[1].parentElement.className = 'card';
-        countMove();
         setTimeout(deleteCards, 500);
     }
 }
@@ -73,6 +71,7 @@ function addCardsListener() {
             const icon = evt.target.querySelector('i').className;
             cardsOpen.push(icon);
             if (cardsOpen.length === 2) {
+                countMove();
                 twoCardsMatch();
                 setTimeout(twoCardsNotMatch, 500);
             }
@@ -80,21 +79,20 @@ function addCardsListener() {
     });
 }
 
+//Set up count movement
 function countMove() {
-    if (cardsOpen.length === 2) {
-        let moves = document.querySelector('.moves');
-        let stringMoves = moves.textContent;
+        const moves = document.querySelector('.moves');
+        const stringMoves = moves.textContent;
         let numberMoves = parseInt(stringMoves, 10);
         numberMoves += 1;
         moves.textContent = numberMoves.toString();
-    }
 }
 
-countMove();
 //   - if the list already has another card, check to see if the two cards match
 //     + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one) - Done
 //     + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one) - Done
-//     + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+//     + increment the move counter and display it on the page (put this functionality in another function that you call from this one) - Done
+//     + add count time
 //     + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 
 //Run code
