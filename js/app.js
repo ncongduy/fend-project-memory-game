@@ -5,7 +5,7 @@ let listOfCards = ['fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa f
 const deck = document.querySelector('.deck');
 const fragmentCard = document.createDocumentFragment();
 let cardsOpen = [];
-let interval = null;
+let interval;
 
 //Shuffle the list of cards; Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -74,7 +74,7 @@ function countMove() {
 }
 
 //Set up two number letter which is lower than 10: 00, 01, 02,...
-function addZero(value) {
+function addZeroIntoNumber(value) {
     let time = value.toString();
     if (time.length < 2) {
         return "0" + time;
@@ -92,13 +92,13 @@ function timer() {
         let seconds = Math.floor(deltaTime % (60 * 1000) / 1000);
         let minutesLabel = document.querySelector('#minutes');
         let secondsLabel = document.querySelector('#seconds');
-        minutesLabel.textContent = addZero(minutes);
-        secondsLabel.textContent = addZero(seconds);
+        minutesLabel.textContent = addZeroIntoNumber(minutes);
+        secondsLabel.textContent = addZeroIntoNumber(seconds);
     }, 1000);
 }
 
 //Run timer when click first card
-function click(evt){
+function click(evt) {
     if (evt.target.nodeName === 'LI') {
         timer();
         deck.removeEventListener('click', click);
@@ -107,17 +107,31 @@ function click(evt){
 
 deck.addEventListener('click', click);
 
-//Restar game
-function restart(){
+//Restart game
+function restart() {
     const restartIcon = document.querySelector('.restart');
-    restartIcon.addEventListener('click', function(){
+    restartIcon.addEventListener('click', function () {
         location.reload();
     })
 }
 
 //Stop Timer when win game
-function clearTimer() {
+function StopTimer() {
     clearInterval(interval);
+}
+
+//Win game
+function winGame() {
+    const cardsGame = deck.querySelectorAll('li');
+    let cardMatch = [];
+    for (let i = 0; i < listOfCards.length; i++) {
+        if (cardsGame[i].className === 'card match') {
+            cardMatch.push(cardsGame[i].className);
+            if(cardMatch.length === listOfCards.length){
+                StopTimer();
+            }
+        }
+    }
 }
 
 //Set up the event listener for a card. If a card is clicked
@@ -132,6 +146,7 @@ function addCardsListener() {
                 twoCardsMatch();
                 setTimeout(twoCardsNotMatch, 500);
             }
+            winGame();
         }
     });
 }
@@ -141,8 +156,9 @@ function addCardsListener() {
 //     + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one) - Done
 //     + increment the move counter and display it on the page (put this functionality in another function that you call from this one) - Done
 //     + add count time - Done
-//     + fix mistake double click one card
+//     + stop timer when all cards match - Done
 //     + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+//     + fix mistake double click one card
 
 //Run code
 shuffle(listOfCards);
