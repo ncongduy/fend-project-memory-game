@@ -107,6 +107,14 @@ function click(evt){
 
 deck.addEventListener('click', click);
 
+//Restar game
+function restart(){
+    const restartIcon = document.querySelector('.restart');
+    restartIcon.addEventListener('click', function(){
+        location.reload();
+    })
+}
+
 //Stop Timer when win game
 function clearTimer() {
     clearInterval(interval);
@@ -140,3 +148,4 @@ function addCardsListener() {
 shuffle(listOfCards);
 addCardsToPage();
 addCardsListener();
+restart();
