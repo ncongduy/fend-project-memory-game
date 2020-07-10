@@ -4,8 +4,14 @@ let listOfCards = ['fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa f
 //Declare variable
 const deck = document.querySelector('.deck');
 const fragmentCard = document.createDocumentFragment();
+const popUpBox = document.querySelector('.announce');
+const moves = document.querySelector('.moves');
+const stringMoves = moves.textContent;
+let numberMoves = parseInt(stringMoves, 10);
 let cardsOpen = [];
 let interval;
+let minutesLabel = document.querySelector('#minutes');
+let secondsLabel = document.querySelector('#seconds');
 
 //Shuffle the list of cards; Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -66,9 +72,6 @@ function twoCardsNotMatch() {
 
 //Set up count movement
 function countMove() {
-    const moves = document.querySelector('.moves');
-    const stringMoves = moves.textContent;
-    let numberMoves = parseInt(stringMoves, 10);
     numberMoves += 1;
     moves.textContent = numberMoves.toString();
 }
@@ -90,8 +93,6 @@ function timer() {
         let deltaTime = Date.now() - startTime;
         let minutes = Math.floor(deltaTime / (60 * 1000));
         let seconds = Math.floor(deltaTime % (60 * 1000) / 1000);
-        let minutesLabel = document.querySelector('#minutes');
-        let secondsLabel = document.querySelector('#seconds');
         minutesLabel.textContent = addZeroIntoNumber(minutes);
         secondsLabel.textContent = addZeroIntoNumber(seconds);
     }, 1000);
@@ -120,6 +121,44 @@ function StopTimer() {
     clearInterval(interval);
 }
 
+// Rating star
+function voteStart() {
+    if (numberMoves >= 0 && numberMoves <= 16) {
+        return (
+            `<li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>`
+        )
+    } else if (numberMoves > 16 && numberMoves <= 20) {
+        return (
+            `<li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star-o"></i></li>`
+        )
+    } else {
+        return (
+            `<li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star-o"></i></li>
+            <li><i class="fa fa-star-o"></i></li>`
+        )
+    }
+}
+
+// Pop up message when win game
+function popUpMessage() {
+    popUpBox.innerHTML =
+        `<div>
+        <div>Congratulation! You won the game.</div>
+        <div>You used <b>${moves.textContent}</b> moves and <b>${minutesLabel.textContent}</b> minutes <b>${secondsLabel.textContent}</b> seconds</div>
+        <div class="ratingStar">${voteStart()}</div>
+        <div>Do you want to play again?</div>
+        <div class="boxAnswer">
+            <span class="answer">Yes</span>
+            <span class="answer">No</span>
+        </div>
+    </div>`;
+}
+
 //Win game
 function winGame() {
     const cardsGame = deck.querySelectorAll('li');
@@ -127,8 +166,9 @@ function winGame() {
     for (let i = 0; i < listOfCards.length; i++) {
         if (cardsGame[i].className === 'card match') {
             cardMatch.push(cardsGame[i].className);
-            if(cardMatch.length === listOfCards.length){
+            if (cardMatch.length === listOfCards.length) {
                 StopTimer();
+                setTimeout(popUpMessage, 500);
             }
         }
     }
@@ -156,6 +196,7 @@ function addCardsListener() {
 //     + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one) - Done
 //     + increment the move counter and display it on the page (put this functionality in another function that you call from this one) - Done
 //     + add count time - Done
+//     + add restart feature - Done
 //     + stop timer when all cards match - Done
 //     + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 //     + fix mistake double click one card
