@@ -147,16 +147,24 @@ function voteStart() {
 // Pop up message when win game
 function popUpMessage() {
     popUpBox.innerHTML =
-        `<div>
+        `<div class="popUpContainer">
         <div>Congratulation! You won the game.</div>
         <div>You used <b>${moves.textContent}</b> moves and <b>${minutesLabel.textContent}</b> minutes <b>${secondsLabel.textContent}</b> seconds</div>
         <div class="ratingStar">${voteStart()}</div>
         <div>Do you want to play again?</div>
         <div class="boxAnswer">
-            <span class="answer">Yes</span>
-            <span class="answer">No</span>
+            <span class="answer yes">Yes</span>
+            <span class="answer no">No</span>
         </div>
     </div>`;
+    const yesIcon = document.querySelector('.yes');
+    const noIcon = document.querySelector('.no');
+    yesIcon.addEventListener('click', function(){
+        location.reload();
+    });
+    noIcon.addEventListener('click', function(){
+        popUpBox.innerHTML = "";
+    });    
 }
 
 //Win game

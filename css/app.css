@@ -109,19 +109,32 @@ h1 {
     cursor: pointer;
 }
 
+/*
+ * Styles for pop up box message
+ */
+
 .announce {
     text-align: center;
     font-family: 'Coda', cursive;
     font-size: 18px;
+    position: fixed;
+    align-items: center;
+}
+
+.popUpContainer {
+    background-color:  tomato;
+    padding: 20px;
 }
 
 .answer {
     margin: 50px;
-    border: solid black 1px;
+    padding: 5px;
+    border: solid black 2px;
+    cursor: pointer;    
 }
 
 .boxAnswer {
-    margin: 20px 0px;
+    margin-top: 20px;
 }
 
 .ratingStar {
